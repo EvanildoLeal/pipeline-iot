@@ -131,4 +131,4 @@ else:
     st.success("✅ Nenhum alerta no momento")
 
 st.markdown("---")
-st.markdown("📊 **Pipeline de Dados IoT** - Desenvolvido para Disruptive Architectures")
+st.markdown("📊 **Pipeline de Dados IoT** - Desenvolvido para Disruptive Architectures UniFECAF - Evanildo Leal")
