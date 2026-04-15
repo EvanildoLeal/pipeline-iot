@@ -8,12 +8,14 @@
 
 ## 📋 Sobre o Projeto
 
-Este projeto implementa um **pipeline completo de dados para IoT**, processando leituras de temperatura de sensores e disponibilizando um dashboard interativo.
+Este projeto implementa um **pipeline completo de dados para IoT** (Internet das Coisas), processando leituras de temperatura de sensores e disponibilizando um dashboard interativo para monitoramento em tempo real.
 
 ### 🎯 Objetivos
 - Processar grandes volumes de dados de sensores IoT.
 - Armazenar dados de forma eficiente em PostgreSQL.
+- Criar views SQL para análises rápidas
 - Disponibilizar dashboard interativo com Streamlit.
+- Garantir reprodutibilidade via Docker
 
 ---
 
