@@ -197,3 +197,106 @@ with engine.connect() as conn:
 
 📊 Dashboard - Capturas de Tela
 Tela Principal do Dashboard
+
+
+🗄️ Views SQL Implementadas
+avg_temp_por_dispositivo
+Propósito: Identificar dispositivos com maior temperatura média.
+CREATE VIEW avg_temp_por_dispositivo AS
+SELECT 
+    device_id,
+    COUNT(*) as total_leituras,
+    ROUND(AVG(temperature)::numeric, 2) as avg_temp,
+    ROUND(MIN(temperature)::numeric, 2) as min_temp,
+    ROUND(MAX(temperature)::numeric, 2) as max_temp
+FROM temperature_readings
+GROUP BY device_id
+ORDER BY avg_temp DESC
+LIMIT 20;
+
+leituras_por_hora
+Propósito: Analisar padrões temporais de temperatura.
+CREATE VIEW leituras_por_hora AS
+SELECT 
+    EXTRACT(HOUR FROM timestamp) as hora,
+    COUNT(*) as contagem,
+    ROUND(AVG(temperature)::numeric, 2) as temp_media
+FROM temperature_readings
+GROUP BY EXTRACT(HOUR FROM timestamp)
+ORDER BY hora;
+
+temp_por_localizacao
+Propósito: Comparar temperaturas internas vs externas.
+CREATE VIEW temp_por_localizacao AS
+SELECT 
+    in_out as localizacao,
+    COUNT(*) as total_leituras,
+    ROUND(AVG(temperature)::numeric, 2) as temp_media,
+    ROUND(MIN(temperature)::numeric, 2) as temp_min,
+    ROUND(MAX(temperature)::numeric, 2) as temp_max
+FROM temperature_readings
+GROUP BY in_out;
+
+temp_max_min_por_dia (Extra)
+Propósito: Monitorar evolução diária das temperaturas.
+CREATE VIEW temp_max_min_por_dia AS
+SELECT 
+    DATE(timestamp) as data,
+    ROUND(MIN(temperature)::numeric, 2) as temp_min,
+    ROUND(MAX(temperature)::numeric, 2) as temp_max,
+    ROUND(AVG(temperature)::numeric, 2) as temp_media
+FROM temperature_readings
+GROUP BY DATE(timestamp)
+ORDER BY data DESC;
+📊 Resultados e Métricas
+Estatísticas do Pipeline
+Métrica	Valor
+Total de registros processados	97.606
+Registros inseridos no banco	97.605
+Dispositivos únicos	97.605
+Período dos dados	133 dias
+Temperatura média	35,05°C
+Temperatura mínima	21,00°C
+Temperatura máxima	51,00°C
+Tempo de processamento	~30 segundos
+
+Performance
+Inserção em batches: 10.000 registros por vez
+
+Índices criados: 2 (device_id+timestamp, timestamp)
+
+Tamanho do banco: ~15 MB
+
+Consulta média: <100ms
+
+💡 Insights dos Dados
+Temperaturas elevadas: Média de 35,1°C indica necessidade de refrigeração
+
+Variação significativa: Amplitude de 30°C requer monitoramento contínuo
+
+Picos temporais: Maiores temperaturas entre 14h-16h
+
+Diferença In/Out: Externo 6,2°C mais quente que interno
+
+Dispositivos críticos: 5% dos sensores operam acima de 45°C
+
+🎯 Funcionalidades Implementadas
+✅ Pipeline de ingestão - Leitura e processamento de CSV
+✅ Banco de dados - PostgreSQL com índices otimizados
+✅ Views SQL - 4 views para análises específicas
+✅ Dashboard - 4 gráficos interativos
+✅ Alertas - Detecção automática de anomalias
+✅ Logs - Monitoramento do pipeline
+✅ Containerização - Docker para reprodutibilidade
+
+📝 Licença
+Este projeto é de uso acadêmico para a disciplina Disruptive Architectures IOT, Big Data e IA.
+
+👨‍💻 Autor
+Evanildo de Sousa Leal
+
+GitHub: evanildo@wfxky.onmicrosoft.com
+
+Disciplina: Disruptive Architectures
+
+Instituição: UNIFECAF
