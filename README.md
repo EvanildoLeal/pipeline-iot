@@ -198,16 +198,16 @@ with engine.connect() as conn:
 ## 📊 Dashboard - Capturas de Tela
 
 ### Tela Principal do Dashboard
-![Dashboard Principal](docs/images/imagens/dashboard_full.png)
+<img src="docs/images/imagens/dashboard_full.png" alt="Dashboard Principal" width="800">
 
 ### Gráfico 1: Média de Temperatura por Dispositivo
-![Gráfico de Barras](docs/images/imagens/grafico_barras.png)
+<img src="docs/images/imagens/grafico_barras.png" alt="Gráfico de Barras" width="600">
 
 ### Gráfico 2: Leituras por Hora do Dia
-![Leituras por Hora](docs/images/imagens/grafico_hora.png)
+<img src="docs/images/imagens/grafico_hora.png" alt="Leituras por Hora" width="600">
 
 ### Gráfico 3: Evolução Diária das Temperaturas
-![Evolução Diária](docs/images/imagens/grafico_evolucao.jpg)
+<img src="docs/images/imagens/grafico_evolucao.jpg" alt="Evolução Diária" width="600">
 
 
 🗄️ Views SQL Implementadas
