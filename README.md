@@ -169,13 +169,21 @@ with engine.connect() as conn:
             conn.commit()
     print('✅ Views criadas com sucesso!')
 "
-📊 Dashboard - Capturas de TelaAqui estão as visualizações do dashboard interativo desenvolvido com Streamlit.
-1. Visão Geral do Dashboard (Full)
-<img src="dashboard_full.png" alt="Dashboard Completo" width="1000">
-2. Análise de Dispositivos Críticos (Barras)<img src="grafico_barras.png" alt="Gráfico de Barras" width="800">
-3. Evolução Temporal das Temperaturas (Linhas)<img src="grafico_evolucao.jpg" alt="Gráfico de Evolução" width="800">
-4. Padrão de Temperatura por Hora (Média)<img src="grafico_hora.png" alt="Gráfico por Hora" width="800">
+## 📊 Dashboard - Capturas de Tela
 
+Aqui estão as visualizações do dashboard interativo:
+
+### 1. Visão Geral do Dashboard
+![Dashboard Completo](https://github.com/EvanildoLeal/pipeline-iot/blob/main/dashboard_full.png?raw=true)
+
+### 2. Análise de Dispositivos Críticos
+![Gráfico de Barras](https://github.com/EvanildoLeal/pipeline-iot/blob/main/grafico_barras.png?raw=true)
+
+### 3. Evolução Temporal das Temperaturas
+![Gráfico de Evolução](https://github.com/EvanildoLeal/pipeline-iot/blob/main/grafico_evolucao.jpg?raw=true)
+
+### 4. Padrão de Temperatura por Hora
+![Gráfico por Hora](https://github.com/EvanildoLeal/pipeline-iot/blob/main/grafico_hora.png?raw=true)
 🗄️ Views SQL Implementadasavg_temp_por_dispositivoPropósito:
 Identificar dispositivos com maior temperatura média.
 SQLCREATE VIEW avg_temp_por_dispositivo AS
