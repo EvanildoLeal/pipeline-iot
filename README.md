@@ -200,16 +200,6 @@ with engine.connect() as conn:
 ### Tela Principal do Dashboard
 ![image alt](https://github.com/EvanildoLeal/pipeline-iot/blob/4152ecb745a858d7a99e7639172ce9e8f573743c/dashboard_full.png)
 
-### Gráfico 1: Média de Temperatura por Dispositivo
-![Gráfico de Barras](docs/images/imagens/grafico_barras.png)
-
-### Gráfico 2: Leituras por Hora do Dia
-![Leituras por Hora](docs/images/imagens/grafico_hora.png)
-
-### Gráfico 3: Evolução Diária das Temperaturas
-![Evolução Diária](docs/images/imagens/grafico_evolucao.jpg)
-
-
 🗄️ Views SQL Implementadas
 avg_temp_por_dispositivo
 Propósito: Identificar dispositivos com maior temperatura média.
