@@ -197,7 +197,7 @@ with engine.connect() as conn:
 
 ## 📊 Dashboard - Capturas de Tela
 
-<img width="1920" height="3393" alt="dashboard_full" src="https://github.com/user-attachments/assets/0d4e6aa2-3502-48a6-83b2-312cc368ae01" />
+<img src="https://github.com/user-attachments/assets/0d4e6aa2-3502-48a6-83b2-312cc368ae01" alt="dashboard_full" width="800">
 
 🗄️ Views SQL Implementadas
 avg_temp_por_dispositivo
