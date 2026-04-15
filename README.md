@@ -195,8 +195,19 @@ with engine.connect() as conn:
     print('✅ Views criadas com sucesso!')
 "
 
-📊 Dashboard - Capturas de Tela
-Tela Principal do Dashboard
+## 📊 Dashboard - Capturas de Tela
+
+### Tela Principal do Dashboard
+![Dashboard Principal](docs/images/imagens/dashboard_full.png)
+
+### Gráfico 1: Média de Temperatura por Dispositivo
+![Gráfico de Barras](docs/images/imagens/grafico_barras.png)
+
+### Gráfico 2: Leituras por Hora do Dia
+![Leituras por Hora](docs/images/imagens/grafico_hora.png)
+
+### Gráfico 3: Evolução Diária das Temperaturas
+![Evolução Diária](docs/images/imagens/grafico_evolucao.jpg)
 
 
 🗄️ Views SQL Implementadas
