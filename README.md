@@ -197,17 +197,17 @@ with engine.connect() as conn:
 
 ## 📊 Dashboard - Capturas de Tela
 
-### Tela Principal do Dashboard
-![Dashboard Full](https://raw.githubusercontent.com/EvanildoLeal/pipeline-iot/main/dashboard_full.png)
+### 1. Dashboard Completo
+![Dashboard Full](dashboard_full.png)
 
-### Gráfico 1: Média de Temperatura por Dispositivo
-![Gráfico de Barras](https://raw.githubusercontent.com/EvanildoLeal/pipeline-iot/main/grafico_barras.png)
+### 2. Gráfico de Barras
+![Gráfico de Barras](grafico_barras.png)
 
-### Gráfico 2: Leituras por Hora do Dia
-![Gráfico de Evolução](https://raw.githubusercontent.com/EvanildoLeal/pipeline-iot/main/grafico_evolucao.jpg)
+### 3. Gráfico de Evolução
+![Gráfico de Evolução](grafico_evolucao.jpg)
 
-### Gráfico 3: Evolução Diária das Temperaturas
-![Gráfico por Hora](https://raw.githubusercontent.com/EvanildoLeal/pipeline-iot/main/grafico_hora.png)
+### 4. Gráfico por Hora
+![Gráfico por Hora](grafico_hora.png)
 
 🗄️ Views SQL Implementadas
 avg_temp_por_dispositivo
