@@ -110,7 +110,8 @@ Instale as dependências
 python -m pip install -r requirements.txt
 
 # Verifique a instalação
-python -c "import pandas, streamlit, sqlalchemy; print('✅ Dependências instaladas!')"
+python -c "import pandas, streamlit, sqlalchemy;
+print('✅ Dependências instaladas!')"
 
  Configure as variáveis de ambiente
 # Copie o arquivo de exemplo
@@ -152,7 +153,7 @@ ls -la data/
 Download do dataset:
 https://www.kaggle.com
 (https://www.kaggle.com/datasets/atulanandjha/temperature-readings-iot-de
-vices
+vices)
 
 Execute o pipeline de ingestão
 # Execute o script de ingestão
@@ -241,6 +242,7 @@ SELECT
 FROM temperature_readings
 GROUP BY DATE(timestamp)
 ORDER BY data DESC;
+
 📊 Resultados e Métricas
 Estatísticas do Pipeline
 Métrica	Valor
