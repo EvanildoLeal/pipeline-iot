@@ -91,14 +91,10 @@ Pipeline de Dados IoT/
 
 ```bash
 # Clone o repositório
-git clone https://github.com/EvanildoLeal/pipeline-iot.git
+git clone [https://github.com/EvanildoLeal/pipeline-iot.git](https://github.com/EvanildoLeal/pipeline-iot.git)
 cd pipeline-iot
-
-# Verifique os arquivos
-ls -la
-
-Configure o ambiente virtual
-# Crie o ambiente virtual
+2. Verifique os arquivosBashls -la
+3. Configure o ambiente virtualBash# Crie o ambiente virtual
 python -m venv .venv
 
 # Ative o ambiente virtual
@@ -107,74 +103,53 @@ python -m venv .venv
 
 # Linux/Mac:
 source .venv/bin/activate
-
-Instale as dependências
-# Instale todas as dependências
+4. Instale as dependênciasBash# Instale todas as dependências
 python -m pip install -r requirements.txt
 
 # Verifique a instalação
 python -c "import pandas, streamlit, sqlalchemy; print('✅ Dependências instaladas!')"
-
- Configure as variáveis de ambiente
-# Copie o arquivo de exemplo
+5. Configure as variáveis de ambienteBash# Copie o arquivo de exemplo
 cp .env.example .env
 
 # Edite o arquivo .env com suas configurações
 # (Use nano, vim ou qualquer editor)
 nano .env
-
-Conteúdo do .env:
-DB_HOST=localhost
+Conteúdo do .env:BashDB_HOST=localhost
 DB_PORT=5432
 DB_NAME=postgres
 DB_USER=postgres
 DB_PASSWORD=sua_senha_aqui
 LOG_LEVEL=INFO
-
-Inicie o container PostgreSQL com Docker
-# Método 1: Usando docker-compose (recomendado)
+6. Inicie o container PostgreSQL com DockerBash# Método 1: Usando docker-compose (recomendado)
 docker-compose up -d
 
 # Método 2: Usando docker run diretamente
 docker run --name postgres-iot \
-  -e POSTGRES_PASSWORD=sua_senha \
-  -p 5432:5432 \
-  -d postgres
+  -e POSTGRES_PASSWORD=sua_senha \
+  -p 5432:5432 \
+  -d postgres
 
 # Verifique se o container está rodando
 docker ps
-
-Prepare o dataset
-# Copie o arquivo CSV para a pasta data/
+7. Prepare o datasetBash# Copie o arquivo CSV para a pasta data/
 # Baixe o dataset do Kaggle ou use o fornecido
 cp /caminho/do/seu/IOT-temp.csv data/
 
 # Verifique se o arquivo foi copiado
 ls -la data/
-
-Download do dataset:
-https://www.kaggle.com
-(https://www.kaggle.com/datasets/atulanandjha/temperature-readings-iot-de
-vices
-
-Execute o pipeline de ingestão
-# Execute o script de ingestão
+Download do dataset:https://www.kaggle.com/datasets/atulanandjha/temperature-readings-iot-devices8. Execute o pipeline de ingestãoBash# Execute o script de ingestão
 python src/ingestion_adapted.py
-
-# Saída esperada:
-# ============================================================
+Saída esperada:Bash# ============================================================
 # 🚀 Pipeline de Ingestão de Dados IoT - Temperaturas
 # ============================================================
 # ✅ Tabela criada/verificada com sucesso!
 # 📊 Total de linhas no CSV: 97606
 # 📈 Estatísticas dos dados:
-#    - Temperatura média: 35.05°C
-#    - Temperatura mínima: 21.00°C
-#    - Temperatura máxima: 51.00°C
+#    - Temperatura média: 35.05°C
+#    - Temperatura mínima: 21.00°C
+#    - Temperatura máxima: 51.00°C
 # ✅ Total de registros inseridos: 97605
-
-Crie as views SQL
-# Execute o script de criação das views
+9. Crie as views SQLBash# Execute o script de criação das views
 python -c "
 from sqlalchemy import create_engine, text
 import os
@@ -185,118 +160,50 @@ connection_string = f\"postgresql://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWO
 engine = create_engine(connection_string)
 
 with open('sql/create_views.sql', 'r') as f:
-    sql = f.read()
+    sql = f.read()
 
 with engine.connect() as conn:
-    for statement in sql.split(';'):
-        if statement.strip():
-            conn.execute(text(statement))
-            conn.commit()
-    print('✅ Views criadas com sucesso!')
+    for statement in sql.split(';'):
+        if statement.strip():
+            conn.execute(text(statement))
+            conn.commit()
+    print('✅ Views criadas com sucesso!')
 "
-
-## 📊 Dashboard - Capturas de Tela
-
-<img src="https://github.com/user-attachments/assets/0d4e6aa2-3502-48a6-83b2-312cc368ae01" alt="dashboard_full" width="800">
-
-🗄️ Views SQL Implementadas
-avg_temp_por_dispositivo
-Propósito: Identificar dispositivos com maior temperatura média.
-CREATE VIEW avg_temp_por_dispositivo AS
-SELECT 
-    device_id,
-    COUNT(*) as total_leituras,
-    ROUND(AVG(temperature)::numeric, 2) as avg_temp,
-    ROUND(MIN(temperature)::numeric, 2) as min_temp,
-    ROUND(MAX(temperature)::numeric, 2) as max_temp
+📊 Dashboard - Capturas de TelaAqui estão as visualizações do dashboard interativo desenvolvido com Streamlit.1. Visão Geral do Dashboard (Full)<img src="dashboard_full.png" alt="Dashboard Completo" width="1000">2. Análise de Dispositivos Críticos (Barras)<img src="grafico_barras.png" alt="Gráfico de Barras" width="800">3. Evolução Temporal das Temperaturas (Linhas)<img src="grafico_evolucao.jpg" alt="Gráfico de Evolução" width="800">4. Padrão de Temperatura por Hora (Média)<img src="grafico_hora.png" alt="Gráfico por Hora" width="800">🗄️ Views SQL Implementadasavg_temp_por_dispositivoPropósito: Identificar dispositivos com maior temperatura média.SQLCREATE VIEW avg_temp_por_dispositivo AS
+SELECT 
+    device_id,
+    COUNT(*) as total_leituras,
+    ROUND(AVG(temperature)::numeric, 2) as avg_temp,
+    ROUND(MIN(temperature)::numeric, 2) as min_temp,
+    ROUND(MAX(temperature)::numeric, 2) as max_temp
 FROM temperature_readings
 GROUP BY device_id
 ORDER BY avg_temp DESC
 LIMIT 20;
-
-leituras_por_hora
-Propósito: Analisar padrões temporais de temperatura.
-CREATE VIEW leituras_por_hora AS
-SELECT 
-    EXTRACT(HOUR FROM timestamp) as hora,
-    COUNT(*) as contagem,
-    ROUND(AVG(temperature)::numeric, 2) as temp_media
+leituras_por_horaPropósito: Analisar padrões temporais de temperatura.SQLCREATE VIEW leituras_por_hora AS
+SELECT 
+    EXTRACT(HOUR FROM timestamp) as hora,
+    COUNT(*) as contagem,
+    ROUND(AVG(temperature)::numeric, 2) as temp_media
 FROM temperature_readings
 GROUP BY EXTRACT(HOUR FROM timestamp)
 ORDER BY hora;
-
-temp_por_localizacao
-Propósito: Comparar temperaturas internas vs externas.
-CREATE VIEW temp_por_localizacao AS
-SELECT 
-    in_out as localizacao,
-    COUNT(*) as total_leituras,
-    ROUND(AVG(temperature)::numeric, 2) as temp_media,
-    ROUND(MIN(temperature)::numeric, 2) as temp_min,
-    ROUND(MAX(temperature)::numeric, 2) as temp_max
+temp_por_localizacaoPropósito: Comparar temperaturas internas vs externas.SQLCREATE VIEW temp_por_localizacao AS
+SELECT 
+    in_out as localizacao,
+    COUNT(*) as total_leituras,
+    ROUND(AVG(temperature)::numeric, 2) as temp_media,
+    ROUND(MIN(temperature)::numeric, 2) as temp_min,
+    ROUND(MAX(temperature)::numeric, 2) as temp_max
 FROM temperature_readings
 GROUP BY in_out;
-
-temp_max_min_por_dia (Extra)
-Propósito: Monitorar evolução diária das temperaturas.
-CREATE VIEW temp_max_min_por_dia AS
-SELECT 
-    DATE(timestamp) as data,
-    ROUND(MIN(temperature)::numeric, 2) as temp_min,
-    ROUND(MAX(temperature)::numeric, 2) as temp_max,
-    ROUND(AVG(temperature)::numeric, 2) as temp_media
+temp_max_min_por_dia (Extra)Propósito: Monitorar evolução diária das temperaturas.SQLCREATE VIEW temp_max_min_por_dia AS
+SELECT 
+    DATE(timestamp) as data,
+    ROUND(MIN(temperature)::numeric, 2) as temp_min,
+    ROUND(MAX(temperature)::numeric, 2) as temp_max,
+    ROUND(AVG(temperature)::numeric, 2) as temp_media
 FROM temperature_readings
 GROUP BY DATE(timestamp)
 ORDER BY data DESC;
-📊 Resultados e Métricas
-Estatísticas do Pipeline
-Métrica	Valor
-Total de registros processados	97.606
-Registros inseridos no banco	97.605
-Dispositivos únicos	97.605
-Período dos dados	133 dias
-Temperatura média	35,05°C
-Temperatura mínima	21,00°C
-Temperatura máxima	51,00°C
-Tempo de processamento	~30 segundos
-
-Performance
-Inserção em batches: 10.000 registros por vez
-
-Índices criados: 2 (device_id+timestamp, timestamp)
-
-Tamanho do banco: ~15 MB
-
-Consulta média: <100ms
-
-💡 Insights dos Dados
-Temperaturas elevadas: Média de 35,1°C indica necessidade de refrigeração
-
-Variação significativa: Amplitude de 30°C requer monitoramento contínuo
-
-Picos temporais: Maiores temperaturas entre 14h-16h
-
-Diferença In/Out: Externo 6,2°C mais quente que interno
-
-Dispositivos críticos: 5% dos sensores operam acima de 45°C
-
-🎯 Funcionalidades Implementadas
-✅ Pipeline de ingestão - Leitura e processamento de CSV
-✅ Banco de dados - PostgreSQL com índices otimizados
-✅ Views SQL - 4 views para análises específicas
-✅ Dashboard - 4 gráficos interativos
-✅ Alertas - Detecção automática de anomalias
-✅ Logs - Monitoramento do pipeline
-✅ Containerização - Docker para reprodutibilidade
-
-📝 Licença
-Este projeto é de uso acadêmico para a disciplina Disruptive Architectures IOT, Big Data e IA.
-
-👨‍💻 Autor
-Evanildo de Sousa Leal
-
-GitHub: evanildo@wfxky.onmicrosoft.com
-
-Disciplina: Disruptive Architectures
-
-Instituição: UNIFECAF
+📊 Resultados e MétricasEstatísticas do PipelineMétricaValorTotal de registros processados97.606Registros inseridos no banco97.605Dispositivos únicos97.605Período dos dados133 diasTemperatura média35,05°CTemperatura mínima21,00°CTemperatura máxima51,00°CTempo de processamento~30 segundosPerformanceInserção em batches: 10.000 registros por vezÍndices criados: 2 (device_id+timestamp, timestamp)Tamanho do banco: ~15 MBConsulta média: <100ms💡 Insights dos DadosTemperaturas elevadas: Média de 35,1°C indica necessidade de refrigeraçãoVariação significativa: Amplitude de 30°C requer monitoramento contínuoPicos temporais: Maiores temperaturas entre 14h-16hDiferença In/Out: Externo 6,2°C mais quente que internoDispositivos críticos: 5% dos sensores operam acima de 45°C🎯 Funcionalidades Implementadas[x] Pipeline de ingestão - Leitura e processamento de CSV[x] Banco de dados - PostgreSQL com índices otimizados[x] Views SQL - 4 views para análises específicas[x] Dashboard - 4 gráficos interativos[x] Alertas - Detecção automática de anomalias[x] Logs - Monitoramento do pipeline[x] Containerização - Docker para reprodutibilidade📝 LicençaEste projeto é de uso acadêmico para a disciplina Disruptive Architectures IOT, Big Data e IA. MIT License.👨‍💻 AutorEvanildo de Sousa LealGitHub: evanildo@wfxky.onmicrosoft.comDisciplina: Disruptive ArchitecturesInstituição: UNIFECAF
