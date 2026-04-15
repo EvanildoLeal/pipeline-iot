@@ -1,13 +1,23 @@
 ## 📊 Dashboard - Capturas de Tela
 
+Aqui estão as visualizações do dashboard interativo desenvolvido com Streamlit.
+
 ### 1. Visão Geral do Dashboard
-<img src="docs/images/imagens/dashboard_full.png" alt="Dashboard" width="600">
+<p align="center">
+  <img src="docs/images/imagens/dashboard_full.png" alt="Dashboard Completo" width="900">
+</p>
 
 ### 2. Análise de Dispositivos Críticos
-![Barras](docs/images/imagens/grafico_barras.png)
+<p align="center">
+  <img src="docs/images/imagens/grafico_barras.png" alt="Gráfico de Barras" width="700">
+</p>
 
 ### 3. Evolução Temporal das Temperaturas
-![Evolução](docs/images/imagens/grafico_evolucao.jpg)
+<p align="center">
+  <img src="docs/images/imagens/grafico_evolucao.jpg" alt="Gráfico de Evolução" width="700">
+</p>
 
 ### 4. Padrão de Temperatura por Hora
-![Hora](docs/images/imagens/grafico_hora.png)
+<p align="center">
+  <img src="docs/images/imagens/grafico_hora.png" alt="Gráfico por Hora" width="700">
+</p>
