@@ -198,7 +198,7 @@ with engine.connect() as conn:
 ## 📊 Dashboard - Capturas de Tela
 
 ### Tela Principal do Dashboard
-![image alt](https://github.com/EvanildoLeal/pipeline-iot/blob/main/dashboard_full.png?raw=true)
+![image alt](https://github.com/EvanildoLeal/pipeline-iot/blob/4152ecb745a858d7a99e7639172ce9e8f573743c/dashboard_full.png)
 
 ### Gráfico 1: Média de Temperatura por Dispositivo
 ![Gráfico de Barras](docs/images/imagens/grafico_barras.png)
