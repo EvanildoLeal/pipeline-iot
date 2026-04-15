@@ -47,7 +47,6 @@ Este projeto implementa um **pipeline completo de dados para IoT** (Internet das
 ## 📊 Dashboard - Capturas de Tela
 
 Aqui estão as visualizações do sistema. 
-*(Nota: Se as imagens não carregarem imediatamente, por favor atualize a página com Ctrl+F5)*
 
 ### 1. Visão Geral do Dashboard
 ![Dashboard](docs/images/imagens/dashboard_full.png)
@@ -74,32 +73,223 @@ Pipeline de Dados IoT/
 │   └── images/           # Imagens
 └── README.md             # Este arquivo
 
-🚀 Instalação e Execução
-1. Clone e Ambiente
-Bash
-git clone [https://github.com/EvanildoLeal/pipeline-iot.git](https://github.com/EvanildoLeal/pipeline-iot.git)
+## 🚀 Instalação e Execução
+
+### Pré-requisitos
+
+- **Docker Desktop** (Windows/Mac) ou Docker Engine (Linux)
+- **Python 3.14+**
+- **Git** (para clonar o repositório)
+- **8GB RAM** (recomendado)
+
+### Passo a Passo
+
+#### 1. Clone o repositório
+
+```bash
+# Clone o repositório
+git clone https://github.com/EvanildoLeal/pipeline-iot.git
 cd pipeline-iot
+
+# Verifique os arquivos
+ls -la
+
+Configure o ambiente virtual
+# Crie o ambiente virtual
 python -m venv .venv
-source .venv/bin/activate  # Linux/Mac ou .venv\Scripts\activate no Windows
-pip install -r requirements.txt
-2. Banco de Dados e Ingestão
-Bash
+
+# Ative o ambiente virtual
+# Windows:
+.venv\Scripts\activate
+
+# Linux/Mac:
+source .venv/bin/activate
+
+Instale as dependências
+# Instale todas as dependências
+python -m pip install -r requirements.txt
+
+# Verifique a instalação
+python -c "import pandas, streamlit, sqlalchemy; print('✅ Dependências instaladas!')"
+
+ Configure as variáveis de ambiente
+# Copie o arquivo de exemplo
+cp .env.example .env
+
+# Edite o arquivo .env com suas configurações
+# (Use nano, vim ou qualquer editor)
+nano .env
+
+Conteúdo do .env:
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=postgres
+DB_USER=postgres
+DB_PASSWORD=sua_senha_aqui
+LOG_LEVEL=INFO
+
+Inicie o container PostgreSQL com Docker
+# Método 1: Usando docker-compose (recomendado)
 docker-compose up -d
+
+# Método 2: Usando docker run diretamente
+docker run --name postgres-iot \
+  -e POSTGRES_PASSWORD=sua_senha \
+  -p 5432:5432 \
+  -d postgres
+
+# Verifique se o container está rodando
+docker ps
+
+Prepare o dataset
+# Copie o arquivo CSV para a pasta data/
+# Baixe o dataset do Kaggle ou use o fornecido
+cp /caminho/do/seu/IOT-temp.csv data/
+
+# Verifique se o arquivo foi copiado
+ls -la data/
+
+Download do dataset:
+https://www.kaggle.com
+(https://www.kaggle.com/datasets/atulanandjha/temperature-readings-iot-de
+vices
+
+Execute o pipeline de ingestão
+# Execute o script de ingestão
 python src/ingestion_adapted.py
+
+# Saída esperada:
+# ============================================================
+# 🚀 Pipeline de Ingestão de Dados IoT - Temperaturas
+# ============================================================
+# ✅ Tabela criada/verificada com sucesso!
+# 📊 Total de linhas no CSV: 97606
+# 📈 Estatísticas dos dados:
+#    - Temperatura média: 35.05°C
+#    - Temperatura mínima: 21.00°C
+#    - Temperatura máxima: 51.00°C
+# ✅ Total de registros inseridos: 97605
+
+Crie as views SQL
+# Execute o script de criação das views
+python -c "
+from sqlalchemy import create_engine, text
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
+connection_string = f\"postgresql://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}\"
+engine = create_engine(connection_string)
+
+with open('sql/create_views.sql', 'r') as f:
+    sql = f.read()
+
+with engine.connect() as conn:
+    for statement in sql.split(';'):
+        if statement.strip():
+            conn.execute(text(statement))
+            conn.commit()
+    print('✅ Views criadas com sucesso!')
+
+
 🗄️ Views SQL Implementadas
-SQL
+avg_temp_por_dispositivo
+Propósito: Identificar dispositivos com maior temperatura média.
 CREATE VIEW avg_temp_por_dispositivo AS
-SELECT device_id, ROUND(AVG(temperature)::numeric, 2) as avg_temp
+SELECT 
+    device_id,
+    COUNT(*) as total_leituras,
+    ROUND(AVG(temperature)::numeric, 2) as avg_temp,
+    ROUND(MIN(temperature)::numeric, 2) as min_temp,
+    ROUND(MAX(temperature)::numeric, 2) as max_temp
 FROM temperature_readings
 GROUP BY device_id
-ORDER BY avg_temp DESC;
-💡 Insights dos Dados
-Temperaturas elevadas: Média de 35,1°C indica necessidade de refrigeração.
+ORDER BY avg_temp DESC
+LIMIT 20;
 
-Picos temporais: Maiores temperaturas entre 14h-16h.
+leituras_por_hora
+Propósito: Analisar padrões temporais de temperatura.
+CREATE VIEW leituras_por_hora AS
+SELECT 
+    EXTRACT(HOUR FROM timestamp) as hora,
+    COUNT(*) as contagem,
+    ROUND(AVG(temperature)::numeric, 2) as temp_media
+FROM temperature_readings
+GROUP BY EXTRACT(HOUR FROM timestamp)
+ORDER BY hora;
+
+temp_por_localizacao
+Propósito: Comparar temperaturas internas vs externas.
+CREATE VIEW temp_por_localizacao AS
+SELECT 
+    in_out as localizacao,
+    COUNT(*) as total_leituras,
+    ROUND(AVG(temperature)::numeric, 2) as temp_media,
+    ROUND(MIN(temperature)::numeric, 2) as temp_min,
+    ROUND(MAX(temperature)::numeric, 2) as temp_max
+FROM temperature_readings
+GROUP BY in_out;
+
+temp_max_min_por_dia (Extra)
+Propósito: Monitorar evolução diária das temperaturas.
+CREATE VIEW temp_max_min_por_dia AS
+SELECT 
+    DATE(timestamp) as data,
+    ROUND(MIN(temperature)::numeric, 2) as temp_min,
+    ROUND(MAX(temperature)::numeric, 2) as temp_max,
+    ROUND(AVG(temperature)::numeric, 2) as temp_media
+FROM temperature_readings
+GROUP BY DATE(timestamp)
+ORDER BY data DESC;
+📊 Resultados e Métricas
+Estatísticas do Pipeline
+Métrica	Valor
+Total de registros processados	97.606
+Registros inseridos no banco	97.605
+Dispositivos únicos	97.605
+Período dos dados	133 dias
+Temperatura média	35,05°C
+Temperatura mínima	21,00°C
+Temperatura máxima	51,00°C
+Tempo de processamento	~30 segundos
+
+Performance
+Inserção em batches: 10.000 registros por vez
+
+Índices criados: 2 (device_id+timestamp, timestamp)
+
+Tamanho do banco: ~15 MB
+
+Consulta média: <100ms
+
+💡 Insights dos Dados
+Temperaturas elevadas: Média de 35,1°C indica necessidade de refrigeração
+
+Variação significativa: Amplitude de 30°C requer monitoramento contínuo
+
+Picos temporais: Maiores temperaturas entre 14h-16h
+
+Diferença In/Out: Externo 6,2°C mais quente que interno
+
+Dispositivos críticos: 5% dos sensores operam acima de 45°C
+
+🎯 Funcionalidades Implementadas
+✅ Pipeline de ingestão - Leitura e processamento de CSV
+✅ Banco de dados - PostgreSQL com índices otimizados
+✅ Views SQL - 4 views para análises específicas
+✅ Dashboard - 4 gráficos interativos
+✅ Alertas - Detecção automática de anomalias
+✅ Logs - Monitoramento do pipeline
+✅ Containerização - Docker para reprodutibilidade
 
 📝 Licença
-Este projeto é de uso acadêmico para a disciplina Disruptive Architectures IOT.
+Este projeto é de uso acadêmico para a disciplina Disruptive Architectures IOT, Big Data e IA.
 
 👨‍💻 Autor
-Evanildo de Sousa Leal Instituição: UNIFECAF
+Evanildo de Sousa Leal
+
+GitHub: evanildo@wfxky.onmicrosoft.com
+
+Disciplina: Disruptive Architectures
+
+Instituição: UNIFECAF
