@@ -169,21 +169,23 @@ with engine.connect() as conn:
             conn.commit()
     print('✅ Views criadas com sucesso!')
 "
+
 ## 📊 Dashboard - Capturas de Tela
 
 Aqui estão as visualizações do dashboard interativo:
 
 ### 1. Visão Geral do Dashboard
-![Dashboard Completo](https://github.com/EvanildoLeal/pipeline-iot/blob/main/dashboard_full.png?raw=true)
+![Dashboard Completo](docs/images/imagens/dashboard_full.png)
 
 ### 2. Análise de Dispositivos Críticos
-![Gráfico de Barras](https://github.com/EvanildoLeal/pipeline-iot/blob/main/grafico_barras.png?raw=true)
+![Gráfico de Barras](docs/images/imagens/grafico_barras.png)
 
 ### 3. Evolução Temporal das Temperaturas
-![Gráfico de Evolução](https://github.com/EvanildoLeal/pipeline-iot/blob/main/grafico_evolucao.jpg?raw=true)
+![Gráfico de Evolução](docs/images/imagens/grafico_evolucao.jpg)
 
 ### 4. Padrão de Temperatura por Hora
-![Gráfico por Hora](https://github.com/EvanildoLeal/pipeline-iot/blob/main/grafico_hora.png?raw=true)
+![Gráfico por Hora](docs/images/imagens/grafico_hora.png)
+
 🗄️ Views SQL Implementadasavg_temp_por_dispositivoPropósito:
 Identificar dispositivos com maior temperatura média.
 SQLCREATE VIEW avg_temp_por_dispositivo AS
