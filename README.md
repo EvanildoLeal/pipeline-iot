@@ -19,6 +19,31 @@ Este projeto implementa um **pipeline completo de dados para IoT** (Internet das
 
 ---
 
+### 📊 Dataset Utilizado
+
+- **Fonte:** Sensores IoT de temperatura
+- **Período:** 28/07/2018 a 08/12/2018
+- **Registros:** 97.606 leituras
+- **Dispositivos:** 97.605 sensores únicos
+- **Temperaturas:** 21°C a 51°C
+- **Download:** [IOT-temp.csv](https://www.kaggle.com/datasets/iot-temperature-data) (Kaggle)
+
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+| Tecnologia | Versão | Finalidade |
+|------------|--------|------------|
+| **Python** | 3.14+ | Linguagem principal |
+| **PostgreSQL** | 18 | Banco de dados relacional |
+| **Docker** | Latest | Containerização |
+| **Streamlit** | 1.56+ | Dashboard interativo |
+| **Pandas** | 3.0+ | Manipulação de dados |
+| **SQLAlchemy** | 2.0+ | ORM e conexão |
+| **Plotly** | 5.17+ | Gráficos interativos |
+
+---
+
 ## 📊 Dashboard - Capturas de Tela
 
 Aqui estão as visualizações do sistema. 
