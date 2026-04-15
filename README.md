@@ -198,16 +198,16 @@ with engine.connect() as conn:
 ## 📊 Dashboard - Capturas de Tela
 
 ### 1. Dashboard Completo
-![Dashboard Full](dashboard_full.png)
+![Dashboard Full](https://github.com/EvanildoLeal/pipeline-iot/blob/main/dashboard_full.png?raw=true)
 
 ### 2. Gráfico de Barras
-![Gráfico de Barras](grafico_barras.png)
+![Gráfico de Barras](https://github.com/EvanildoLeal/pipeline-iot/blob/main/grafico_barras.png?raw=true)
 
 ### 3. Gráfico de Evolução
-![Gráfico de Evolução](grafico_evolucao.jpg)
+![Gráfico de Evolução](https://github.com/EvanildoLeal/pipeline-iot/blob/main/grafico_evolucao.jpg?raw=true)
 
 ### 4. Gráfico por Hora
-![Gráfico por Hora](grafico_hora.png)
+![Gráfico por Hora](https://github.com/EvanildoLeal/pipeline-iot/blob/main/grafico_hora.png?raw=true)
 
 🗄️ Views SQL Implementadas
 avg_temp_por_dispositivo
