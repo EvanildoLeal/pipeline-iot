@@ -174,17 +174,21 @@ with engine.connect() as conn:
 
 Aqui estão as visualizações do dashboard interativo:
 
-### 1. Dashboard Completo
-![Dashboard](docs/images/imagens/dashboard_full.png)
+## 📊 Dashboard - Capturas de Tela
 
-### 2. Gráfico de Barras
-![Barras](docs/images/imagens/grafico_barras.png)
+Aqui estão as visualizações do dashboard interativo:
 
-### 3. Gráfico de Evolução
-![Evolução](docs/images/imagens/grafico_evolucao.jpg)
+### 1. Visão Geral do Dashboard
+![Dashboard](https://raw.githubusercontent.com/EvanildoLeal/pipeline-iot/4da50c1776ecca75972333227171556139a13b2c/docs/images/imagens/dashboard_full.png)
 
-### 4. Gráfico por Hora
-![Hora](docs/images/imagens/grafico_hora.png)
+### 2. Análise de Dispositivos Críticos
+![Barras](https://raw.githubusercontent.com/EvanildoLeal/pipeline-iot/4da50c1776ecca75972333227171556139a13b2c/docs/images/imagens/grafico_barras.png)
+
+### 3. Evolução Temporal das Temperaturas
+![Evolução](https://raw.githubusercontent.com/EvanildoLeal/pipeline-iot/4da50c1776ecca75972333227171556139a13b2c/docs/images/imagens/grafico_evolucao.jpg)
+
+### 4. Padrão de Temperatura por Hora
+![Hora](https://raw.githubusercontent.com/EvanildoLeal/pipeline-iot/4da50c1776ecca75972333227171556139a13b2c/docs/images/imagens/grafico_hora.png)
 
 🗄️ Views SQL Implementadasavg_temp_por_dispositivoPropósito:
 Identificar dispositivos com maior temperatura média.
