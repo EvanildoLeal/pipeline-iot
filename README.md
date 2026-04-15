@@ -174,17 +174,17 @@ with engine.connect() as conn:
 
 Aqui estão as visualizações do dashboard interativo:
 
-### 1. Visão Geral do Dashboard
-![Dashboard Completo](docs/images/imagens/dashboard_full.png)
+### 1. Dashboard Completo
+![Dashboard](docs/images/imagens/dashboard_full.png)
 
-### 2. Análise de Dispositivos Críticos
-![Gráfico de Barras](docs/images/imagens/grafico_barras.png)
+### 2. Gráfico de Barras
+![Barras](docs/images/imagens/grafico_barras.png)
 
-### 3. Evolução Temporal das Temperaturas
-![Gráfico de Evolução](docs/images/imagens/grafico_evolucao.jpg)
+### 3. Gráfico de Evolução
+![Evolução](docs/images/imagens/grafico_evolucao.jpg)
 
-### 4. Padrão de Temperatura por Hora
-![Gráfico por Hora](docs/images/imagens/grafico_hora.png)
+### 4. Gráfico por Hora
+![Hora](docs/images/imagens/grafico_hora.png)
 
 🗄️ Views SQL Implementadasavg_temp_por_dispositivoPropósito:
 Identificar dispositivos com maior temperatura média.
