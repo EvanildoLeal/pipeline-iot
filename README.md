@@ -198,6 +198,7 @@ with engine.connect() as conn:
 ## 📊 Dashboard - Capturas de Tela
 
 ### Tela Principal do Dashboard
+HEAD
 <img src="docs/images/imagens/dashboard_full.png" alt="Dashboard Principal" width="800">
 
 ### Gráfico 1: Média de Temperatura por Dispositivo
@@ -209,6 +210,9 @@ with engine.connect() as conn:
 ### Gráfico 3: Evolução Diária das Temperaturas
 <img src="docs/images/imagens/grafico_evolucao.jpg" alt="Evolução Diária" width="600">
 
+
+![image alt](https://github.com/EvanildoLeal/pipeline-iot/blob/4152ecb745a858d7a99e7639172ce9e8f573743c/dashboard_full.png)
+ a3040c5f9d23ecc70eb1f5c2e801d2018e15f38b
 
 🗄️ Views SQL Implementadas
 avg_temp_por_dispositivo
